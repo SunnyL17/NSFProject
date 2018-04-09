@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="user.email!=null">
    <div class='direction'>
      <router-link to="Landing">Landing</router-link>  > Project
     </div>
@@ -161,7 +161,16 @@ export default{
         }
     },
      logOut(){
-      Firebase.auth().signOut();
+       var self = this
+        Firebase.auth().signOut().then(function() {
+        self.user.email = null
+        
+        self.$router.push('/')  
+        }, function(error) {
+	   console.log(error);
+        });
+         
+         
   } 
   }
 }

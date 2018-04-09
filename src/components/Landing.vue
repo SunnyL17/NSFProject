@@ -1,10 +1,14 @@
 <template>
-    <div>
+    <div v-if="user.email!=null" >
+     <div class='log_out'>
+      <button @click='logOut'>Log out</button>
+    </div>
         <p>Hey there! {{user.email}}, check out our new features.</p>   
         <v-wid></v-wid>
     </div>
 </template>
 <script>
+import Firebase from 'firebase'
 import Widget from './Widget'
 export default{
     name:'Landing',
@@ -23,7 +27,17 @@ export default{
             return this.$store.state.user
             
         }
-    }
+    },
+     logOut(){
+       var self = this
+        Firebase.auth().signOut().then(function() {
+        self.user.email = null
+        
+        self.$router.push('/')  
+        }, function(error) {
+	   console.log(error);
+        });  
+  }    
         
         
     /*,
@@ -45,6 +59,11 @@ export default{
   width: 100%;
   height: 20%;
     }
+.log_out{
+    text-align: right;
+    margin-right: 10%;
+    font-weight: bold;
+}
 .title{
     color:#9575CD;
     font-weight: bold;

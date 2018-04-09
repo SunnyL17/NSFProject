@@ -1,6 +1,6 @@
 <template>
 <div>
-   
+
     <h3 class="log_in">Login to our site</h3>
     <p>
     <input type="text" placeholder="Email" v-model='email'>
